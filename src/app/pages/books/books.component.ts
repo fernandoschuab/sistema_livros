@@ -11,8 +11,8 @@ import { firstValueFrom } from "rxjs";
 })
 export class BooksComponent {
   constructor(private bookService: BookService) {}
-  columns = ["titulo", "editora", "id"];
-  // columns = ["id", "titulo", "editora", "edicao", "anoPublicacao", "valor", "autores", "assuntos"];
+
+  columns = ["titulo", "editora", "anoPublicacao", "edicao", "valor", "id"];
   elements: any[] = [
     {
       id: 1,
