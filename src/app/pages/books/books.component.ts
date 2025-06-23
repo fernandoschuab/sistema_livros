@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { BasicTableComponent } from "../../components/tables/basic-table/basic-table.component";
+import { BookService } from "../../services/book.service";
+import { firstValueFrom } from "rxjs";
 
 @Component({
   selector: "app-books",
@@ -8,6 +10,7 @@ import { BasicTableComponent } from "../../components/tables/basic-table/basic-t
   styleUrl: "./books.component.scss",
 })
 export class BooksComponent {
+  constructor(private bookService: BookService) {}
   columns = ["titulo", "editora", "id"];
   // columns = ["id", "titulo", "editora", "edicao", "anoPublicacao", "valor", "autores", "assuntos"];
   elements: any[] = [
@@ -64,4 +67,19 @@ export class BooksComponent {
       ],
     },
   ];
+
+  async getAll() {
+    this.elements = await firstValueFrom(this.bookService.all());
+  }
+
+  async actionEvent(evt: any): Promise<void> {
+    console.log("evt", evt);
+    if (evt.action === "delete" && evt.item) {
+      let res = await firstValueFrom(this.bookService.delete(evt.item.id));
+
+      if (res) {
+        this.getAll();
+      }
+    }
+  }
 }

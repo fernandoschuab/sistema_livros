@@ -1,6 +1,7 @@
 import { Observable } from "rxjs";
 
 import { HttpClient } from "@angular/common/http";
+import { environment } from "../environments/environment";
 
 export abstract class BaseService<T> {
   urlBase: string = "";
@@ -8,7 +9,7 @@ export abstract class BaseService<T> {
     public url: string,
     public http: HttpClient,
   ) {
-    this.urlBase = `${process.env["URL_API"]}/${this.url}`;
+    this.urlBase = `${environment.URL_API}/${this.url}`;
   }
   public all(): Observable<any> {
     return this.http.get(this.urlBase);

@@ -21,6 +21,8 @@ import { MatTableDataSource, MatTableModule } from "@angular/material/table";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { Router, RouterModule } from "@angular/router";
 import { HighlightComponent } from "../../highlight/highlight/highlight.component";
+import { environment } from "../../../environments/environment";
+import Swal from "sweetalert2";
 // Importe HighlightComponent se ele for realmente usado. Se não for, pode remover.
 // import { HighlightComponent } from "../../highlight/highlight/highlight.component";
 
@@ -98,8 +100,15 @@ export class BasicTableComponent implements OnInit, OnChanges, AfterViewInit {
     }
   }
 
-  del(element: any) {
-    this.actionEvent.emit({ item: element, action: "delete" });
+  async del(el: any) {
+    const options: any = {
+      ...environment.confirm_swal_options,
+      text: `Deseja realmente excluir ${el.nome ?? el.titulo}`,
+    };
+    const { value } = await Swal.fire(options);
+    if (value) {
+      this.actionEvent.emit({ item: el, action: "delete" });
+    }
   }
 
   openDialogItemDetails(element: any) {
