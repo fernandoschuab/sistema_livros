@@ -1,1 +1,62 @@
-<p>author works!</p>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="container py-4">
+    <h3 class="mb-4">Dados do Autor:</h3>
+
+    <div class="row">
+      <div class="col-12 col-md-12 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Nome</mat-label>
+          <input
+            matInput
+            placeholder="Preencha o nome do autor"
+            formControlName="nome"
+            required
+            [class.is-invalid]="
+              form.get('nome')?.invalid && form.get('nome')?.touched
+            "
+          />
+          @if (
+            form.get("nome")?.hasError("required") && form.get("nome")?.touched
+          ) {
+            <mat-error>Nome é obrigatório</mat-error>
+          }
+          @if (
+            form.get("nome")?.hasError("minlength") && form.get("nome")?.touched
+          ) {
+            <mat-hint class="text-danger"
+              >Nome deve ter pelo menos 3 caracteres</mat-hint
+            >
+          }
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button type="button" class="btn btn-secondary" (click)="voltar()">
+        Cancelar
+      </button>
+      @if (form.valid) {
+        <button type="submit" class="btn btn-primary" id="btnSend">
+          Salvar
+        </button>
+      } @else {
+        <button type="submit" class="btn btn-primary" id="btnSend" disabled>
+          Salvar
+        </button>
+      }
+    </div>
+  </div>
+</form>
+
+@if (element.id && element.livros) {
+  <mat-list>
+    <div mat-subheader>Livros cadastrados:</div>
+    @for (note of notes; track note) {
+      <mat-list-item>
+        <mat-icon matListItemIcon>book</mat-icon>
+        <div matListItemTitle>{{ note.titulo }}</div>
+        <div matListItemLine>{{ note.anoPublicacao | date: "dd/MM/YYYY" }}</div>
+      </mat-list-item>
+    }
+  </mat-list>
+}

@@ -12,7 +12,7 @@ export class Livro {
   assuntos!: Assunto[];
 
   constructor(data?: Partial<Livro>) {
-    this.id = data?.id !== undefined ? data.id : 0;
+    // this.id = data?.id !== undefined ? data.id : 0;
     this.titulo = data?.titulo !== undefined ? data.titulo : "";
     this.editora = data?.editora !== undefined ? data.editora : "";
     this.edicao = data?.edicao !== undefined ? data.edicao : 0;
