@@ -2,7 +2,6 @@ import { Component, OnInit } from "@angular/core";
 import { BasicTableComponent } from "../../components/tables/basic-table/basic-table.component";
 import { BookService } from "../../services/book.service";
 import { firstValueFrom } from "rxjs";
-import { Livro } from "../../models/livro.model";
 
 @Component({
   selector: "app-books",
