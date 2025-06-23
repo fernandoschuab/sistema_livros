@@ -15,23 +15,7 @@ export class AuthorsComponent implements OnInit {
   }
   columns = ["nome", "id"];
   // columns = ["id", "titulo", "editora", "edicao", "anoPublicacao", "valor", "autores", "assuntos"];
-  elements: any[] = [
-    {
-      id: 1,
-      nome: "Machado de Assis",
-      livros: ["Dom Casmurro", "Memórias Póstumas de Brás Cubas"],
-    },
-    {
-      id: 2,
-      nome: "Aluísio Azevedo",
-      livros: ["O Cortiço"],
-    },
-    {
-      id: 3,
-      nome: "Joaquim Manuel de Macedo",
-      livros: ["A Moreninha"],
-    },
-  ];
+  elements: any[] = [];
 
   async getAll() {
     this.elements = await firstValueFrom(this.authorService.all());

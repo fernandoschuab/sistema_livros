@@ -16,38 +16,7 @@ export class SubjectsComponent implements OnInit {
   }
 
   columns = ["descricao", "id"];
-  elements: any[] = [
-    {
-      id: 1,
-      descricao: "Romance",
-      livros: [
-        "Dom Casmurro",
-        "O Cortiço",
-        "Memórias Póstumas de Brás Cubas",
-        "A Moreninha",
-      ],
-    },
-    {
-      id: 2,
-      descricao: "Conto",
-      livros: ["Dom Casmurro"],
-    },
-    {
-      id: 3,
-      descricao: "Naturalismo",
-      livros: ["O Cortiço"],
-    },
-    {
-      id: 4,
-      descricao: "Filosofia",
-      livros: ["Memórias Póstumas de Brás Cubas"],
-    },
-    {
-      id: 5,
-      descricao: "Juventude",
-      livros: ["A Moreninha"],
-    },
-  ];
+  elements: any[] = [];
 
   async getAll() {
     this.elements = await firstValueFrom(this.subjectService.all());
