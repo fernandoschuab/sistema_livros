@@ -1,0 +1,11 @@
+<span *ngIf="!filter || filter.length === 0">
+  {{ text | truncate: truncateLenght }}</span
+>
+<span
+  [class.truncate-text]="true"
+  [innerHTML]="text | highlight: filter"
+  *ngIf="filter && filter.length > 0"
+></span>
+<ng-template *ngIf="filter">
+  <span [innerHTML]="text | highlight: filter"> </span>
+</ng-template>

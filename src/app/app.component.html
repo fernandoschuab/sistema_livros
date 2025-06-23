@@ -1,4 +1,4 @@
-<div class="d-flex">
+<div class="d-flex light">
   @if (isLogged) {
     <!-- Sidebar -->
     <nav
@@ -21,7 +21,7 @@
           <a
             class="nav-link d-flex align-items-center gap-2"
             routerLink="/livros"
-            routerLinkActive="active"
+            [ngClass]="{ active: isActive(['/livros', '/livro']) }"
           >
             <i class="bi bi-book"></i>
             <span>Livros</span>
@@ -31,7 +31,7 @@
           <a
             class="nav-link d-flex align-items-center gap-2"
             routerLink="/autores"
-            routerLinkActive="active"
+            [ngClass]="{ active: isActive(['/autores', '/autor']) }"
           >
             <i class="bi bi-person"></i>
             <span>Autores</span>
@@ -41,7 +41,7 @@
           <a
             class="nav-link d-flex align-items-center gap-2"
             routerLink="/assuntos"
-            routerLinkActive="active"
+            [ngClass]="{ active: isActive(['/assuntos', '/assunto']) }"
           >
             <i class="bi bi-tags"></i>
             <span>Assuntos</span>
