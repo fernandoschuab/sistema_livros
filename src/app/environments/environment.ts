@@ -10,6 +10,6 @@ export const environment = {
     type: "question",
     title: "Excluir?",
   },
-  URL_API: "https://9fee-177-158-212-103.ngrok-free.app",
-  // URL_API: "http://localhost:8080",
+  // URL_API: "https://9fee-177-158-212-103.ngrok-free.app",
+  URL_API: "http://localhost:8080",
 };
