@@ -9,7 +9,7 @@ import {
 } from "@angular/common/http";
 import { inject } from "@angular/core";
 import { Router } from "@angular/router";
-import { UserService } from "../services/user.service";
+
 import { EMPTY, throwError } from "rxjs";
 import { catchError, retry, tap } from "rxjs/operators";
 import Swal from "sweetalert2";
@@ -19,7 +19,6 @@ export const HttpRequestInterceptor: HttpInterceptorFn = (
   next: HttpHandlerFn,
 ) => {
   const router = inject(Router);
-  const userService = inject(UserService);
   const createHeaders = (): HttpHeaders => {
     let headers = new HttpHeaders();
     headers = headers.append("Content-Type", "application/json");
@@ -60,7 +59,7 @@ export const HttpRequestInterceptor: HttpInterceptorFn = (
       }
       if (error.status === 401) {
         router.navigate(["/login"]);
-        userService.configureLogOff();
+
         return EMPTY;
       }
 
@@ -70,12 +69,12 @@ export const HttpRequestInterceptor: HttpInterceptorFn = (
           "Você não tem permissão para acessar este recurso.",
           "warning",
         );
-        userService.configureLogOff();
+
         return EMPTY;
       }
       if (error.status === 500) {
         Swal.fire("Erro", "Ocorreu um erro interno no servidor.", "error");
-        userService.configureLogOff();
+
         return EMPTY;
       }
 
