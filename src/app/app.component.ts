@@ -21,4 +21,8 @@ export class AppComponent {
   isActive(routes: string[]): boolean {
     return routes.some((route) => this.router.url.startsWith(route));
   }
+
+  goTo(route: string) {
+    this.router.navigate([route]);
+  }
 }

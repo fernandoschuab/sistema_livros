@@ -20,9 +20,7 @@
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center gap-2"
-            [routerLink]="'/livros'"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: false }"
+            (click)="goTo('/livros')"
             [ngClass]="{ active: isActive(['/livros', '/livro']) }"
           >
             <i class="bi bi-book"></i>
@@ -32,9 +30,7 @@
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center gap-2"
-            [routerLink]="'/autores'"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: false }"
+            (click)="goTo('/autores')"
             [ngClass]="{ active: isActive(['/autores', '/autor']) }"
           >
             <i class="bi bi-person"></i>
@@ -44,9 +40,7 @@
         <li class="nav-item">
           <a
             class="nav-link d-flex align-items-center gap-2"
-            [routerLink]="'/assuntos'"
-            routerLinkActive="active"
-            [routerLinkActiveOptions]="{ exact: false }"
+            (click)="goTo('/assuntos')"
             [ngClass]="{ active: isActive(['/assuntos', '/assunto']) }"
           >
             <i class="bi bi-tags"></i>
