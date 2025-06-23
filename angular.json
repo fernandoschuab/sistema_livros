@@ -1,16 +1,15 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
     "typeRoots": ["node_modules/@types", "src/@types"],
     "isolatedModules": true,
     "outDir": "./dist/out-tsc",
-    "baseUrl": "./src", // Define o diretório base para a resolução de módulos
+    "baseUrl": "./src",
     "paths": {
       "app/*": ["app/*"],
       "environments/*": ["environments/*"]
     },
+
     "strict": true,
     "allowSyntheticDefaultImports": true,
     "noImplicitOverride": true,
@@ -22,7 +21,6 @@
     "sourceMap": true,
     "declaration": false,
     "experimentalDecorators": true,
-    // "moduleResolution": "bundler",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "ES2022",
@@ -30,12 +28,14 @@
     "useDefineForClassFields": false,
     "lib": ["ES2022", "dom"]
   },
+
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
     "strictTemplates": true,
+
     "paths": {
       "ngx-quill": ["node_modules/ngx-quill"],
       "tslib": ["path/to/node_modules/tslib/tslib.d.ts"],

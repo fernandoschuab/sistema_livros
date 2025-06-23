@@ -23,8 +23,6 @@ import { firstValueFrom } from "rxjs";
 
 import { Autor } from "../../models/autor.model";
 import { AuthorService } from "../../services/author.service";
-import { BookService } from "../../services/book.service";
-import { SubjectService } from "../../services/sibject.service";
 
 @Component({
   selector: "app-author",

@@ -7,18 +7,14 @@ import {
   ReactiveFormsModule,
   Validators,
 } from "@angular/forms";
-import { MatAutocompleteModule } from "@angular/material/autocomplete";
 import { MatButtonModule } from "@angular/material/button";
 import { MatButtonToggleModule } from "@angular/material/button-toggle";
-import { MatChipsModule } from "@angular/material/chips";
 import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatIconModule } from "@angular/material/icon";
 import { MatInputModule } from "@angular/material/input";
 import { MatListModule } from "@angular/material/list";
-import { MatSelectModule } from "@angular/material/select";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { ActivatedRoute, Router, RouterModule } from "@angular/router";
-
 import { firstValueFrom, Subject } from "rxjs";
 import { SubjectService } from "../../services/sibject.service";
 import { Assunto } from "../../models/assunto.model";
