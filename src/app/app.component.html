@@ -1,53 +1,55 @@
 <div class="d-flex">
-  <!-- Sidebar -->
-  <nav
-    class="sidebar bg-dark text-white p-3"
-    [ngClass]="{ 'sidebar-open': menuOpen, 'sidebar-closed': !menuOpen }"
-  >
-    <div class="d-flex align-items-center mb-4">
-      <i class="bi bi-journal-code fs-4 me-2"></i>
-      <span class="fs-5 fw-semibold">Sistema Biblioteca</span>
-      <button
-        class="btn btn-sm btn-outline-light ms-auto d-md-none"
-        (click)="toggleMenu()"
-      >
-        <i class="bi bi-x-lg"></i>
-      </button>
-    </div>
+  @if (isLogged) {
+    <!-- Sidebar -->
+    <nav
+      class="sidebar bg-dark text-white p-3"
+      [ngClass]="{ 'sidebar-open': menuOpen, 'sidebar-closed': !menuOpen }"
+    >
+      <div class="d-flex align-items-center mb-4">
+        <i class="bi bi-journal-code fs-4 me-2"></i>
+        <span class="fs-5 fw-semibold">Sistema Biblioteca</span>
+        <button
+          class="btn btn-sm btn-outline-light ms-auto d-md-none"
+          (click)="toggleMenu()"
+        >
+          <i class="bi bi-x-lg"></i>
+        </button>
+      </div>
 
-    <ul class="nav flex-column gap-2">
-      <li class="nav-item">
-        <a
-          class="nav-link d-flex align-items-center gap-2"
-          routerLink="/livros"
-          routerLinkActive="active"
-        >
-          <i class="bi bi-book"></i>
-          <span>Livros</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link d-flex align-items-center gap-2"
-          routerLink="/autores"
-          routerLinkActive="active"
-        >
-          <i class="bi bi-person"></i>
-          <span>Autores</span>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a
-          class="nav-link d-flex align-items-center gap-2"
-          routerLink="/assuntos"
-          routerLinkActive="active"
-        >
-          <i class="bi bi-tags"></i>
-          <span>Assuntos</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+      <ul class="nav flex-column gap-2">
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center gap-2"
+            routerLink="/livros"
+            routerLinkActive="active"
+          >
+            <i class="bi bi-book"></i>
+            <span>Livros</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center gap-2"
+            routerLink="/autores"
+            routerLinkActive="active"
+          >
+            <i class="bi bi-person"></i>
+            <span>Autores</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center gap-2"
+            routerLink="/assuntos"
+            routerLinkActive="active"
+          >
+            <i class="bi bi-tags"></i>
+            <span>Assuntos</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  }
 
   <!-- Conteúdo -->
   <div class="flex-grow-1 p-4">
