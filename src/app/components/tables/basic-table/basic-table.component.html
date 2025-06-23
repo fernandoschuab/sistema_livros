@@ -33,6 +33,15 @@
           ></highlight-item>
         </td>
       </ng-container>
+      <ng-container matColumnDef="nome">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Nome</th>
+        <td mat-cell *matCellDef="let element">
+          <highlight-item
+            [text]="element.nome"
+            [filter]="dataSource.filter"
+          ></highlight-item>
+        </td>
+      </ng-container>
 
       <ng-container matColumnDef="editora">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Editora</th>

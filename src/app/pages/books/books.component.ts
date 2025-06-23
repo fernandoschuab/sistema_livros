@@ -1,7 +1,8 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { BasicTableComponent } from "../../components/tables/basic-table/basic-table.component";
 import { BookService } from "../../services/book.service";
 import { firstValueFrom } from "rxjs";
+import { Livro } from "../../models/livro.model";
 
 @Component({
   selector: "app-books",
@@ -9,8 +10,11 @@ import { firstValueFrom } from "rxjs";
   templateUrl: "./books.component.html",
   styleUrl: "./books.component.scss",
 })
-export class BooksComponent {
+export class BooksComponent implements OnInit {
   constructor(private bookService: BookService) {}
+  ngOnInit(): void {
+    this.getAll();
+  }
 
   columns = ["titulo", "editora", "anoPublicacao", "edicao", "valor", "id"];
   elements: any[] = [
@@ -69,6 +73,11 @@ export class BooksComponent {
   ];
 
   async getAll() {
+    // let arr: any[] = [];
+    // this.elements.forEach((el) => {
+    //   arr.push(new Livro(el));
+    // });
+    // this.elements = arr;
     this.elements = await firstValueFrom(this.bookService.all());
   }
 
