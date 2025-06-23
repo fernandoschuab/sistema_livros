@@ -13,6 +13,7 @@ import {
   withInterceptors,
 } from "@angular/common/http";
 import { HttpRequestInterceptor } from "./interceptors/htp-loading.interceptor";
+import { MatChipsModule } from "@angular/material/chips";
 
 export const appConfig: ApplicationConfig = {
   providers: [

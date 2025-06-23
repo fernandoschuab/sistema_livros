@@ -9,6 +9,36 @@
 .bg-dark {
   background-color: var(--md-sys-color-on-primary-container) !important;
 }
+
+[col-10] {
+  width: 10%;
+  float: left;
+}
+[col-25] {
+  width: 25%;
+  float: left;
+}
+[col-33] {
+  width: 33%;
+  float: left;
+}
+[col-50] {
+  width: calc(50% - 10px);
+  float: left;
+  margin-right: 10px;
+}
+.no-margin-right[col-50] {
+  width: 50% !important;
+  margin-right: 0px !important;
+}
+[col-75] {
+  width: 75%;
+  float: left;
+}
+[col-100] {
+  width: 100%;
+  float: left;
+}
 @media (max-width: 767.98px) {
   .sidebar {
     position: fixed;

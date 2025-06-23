@@ -1,1 +1,243 @@
-<p>book works!</p>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="container py-4">
+    <h3 class="mb-4">Dados do Livro:</h3>
+
+    <div class="row">
+      <div class="col-12 col-md-6 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Título</mat-label>
+          <input
+            matInput
+            placeholder="Preencha o título do livro"
+            formControlName="titulo"
+            required
+            [class.is-invalid]="
+              form.get('titulo')?.invalid && form.get('titulo')?.touched
+            "
+          />
+          @if (
+            form.get("titulo")?.hasError("required") &&
+            form.get("titulo")?.touched
+          ) {
+            <mat-error>Título é obrigatório</mat-error>
+          }
+          @if (
+            form.get("titulo")?.hasError("minlength") &&
+            form.get("titulo")?.touched
+          ) {
+            <mat-hint class="text-danger"
+              >Título deve ter pelo menos 3 caracteres</mat-hint
+            >
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-md-6 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Editora</mat-label>
+          <input
+            matInput
+            placeholder="Preencha a editora"
+            formControlName="editora"
+            required
+            [class.is-invalid]="
+              form.get('editora')?.invalid && form.get('editora')?.touched
+            "
+          />
+          @if (
+            form.get("editora")?.hasError("required") &&
+            form.get("editora")?.touched
+          ) {
+            <mat-error>Editora é obrigatória</mat-error>
+          }
+          @if (
+            form.get("editora")?.hasError("minlength") &&
+            form.get("editora")?.touched
+          ) {
+            <mat-hint class="text-danger"
+              >Editora deve ter pelo menos 2 caracteres</mat-hint
+            >
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Edição</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Preencha o número da edição"
+            formControlName="edicao"
+            required
+            [class.is-invalid]="
+              form.get('edicao')?.invalid && form.get('edicao')?.touched
+            "
+          />
+          @if (
+            form.get("edicao")?.hasError("required") &&
+            form.get("edicao")?.touched
+          ) {
+            <mat-error>Edição é obrigatória</mat-error>
+          }
+          @if (
+            form.get("edicao")?.hasError("min") && form.get("edicao")?.touched
+          ) {
+            <mat-hint class="text-danger">Edição deve ser maior que 0</mat-hint>
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Ano de Publicação</mat-label>
+          <input
+            matInput
+            placeholder="Ex: 1899"
+            formControlName="anoPublicacao"
+            required
+            pattern="^(1[0-9]{3}|20[0-2][0-9]|202[0-5])$"
+            [class.is-invalid]="
+              form.get('anoPublicacao')?.invalid &&
+              form.get('anoPublicacao')?.touched
+            "
+          />
+          @if (
+            form.get("anoPublicacao")?.hasError("required") &&
+            form.get("anoPublicacao")?.touched
+          ) {
+            <mat-error>Ano de Publicação é obrigatório</mat-error>
+          }
+          @if (
+            form.get("anoPublicacao")?.hasError("pattern") &&
+            form.get("anoPublicacao")?.touched
+          ) {
+            <mat-hint class="text-danger"
+              >Formato de ano inválido (ex: AAAA)</mat-hint
+            >
+          }
+        </mat-form-field>
+      </div>
+
+      <div class="col-12 col-md-4 mb-3">
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Valor</mat-label>
+          <input
+            matInput
+            type="number"
+            placeholder="Preencha o valor (Ex: 39.90)"
+            formControlName="valor"
+            required
+            min="0.01"
+            step="0.01"
+            [class.is-invalid]="
+              form.get('valor')?.invalid && form.get('valor')?.touched
+            "
+          />
+          @if (
+            form.get("valor")?.hasError("required") &&
+            form.get("valor")?.touched
+          ) {
+            <mat-error>Valor é obrigatório</mat-error>
+          }
+          @if (
+            form.get("valor")?.hasError("min") && form.get("valor")?.touched
+          ) {
+            <mat-hint class="text-danger">Valor deve ser maior que 0</mat-hint>
+          }
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-12 mb-3">
+        <mat-form-field class="chip-list">
+          <mat-label>Autor(es)</mat-label>
+          <mat-chip-grid #chipGrid aria-label="Seleção de autores">
+            <mat-chip-row
+              *ngFor="let author of element?.autores"
+              (removed)="removeAuthor(author)"
+            >
+              {{ author.nome }}
+              <button matChipRemove [attr.aria-label]="'remove ' + author.nome">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input
+            placeholder="Novo autor..."
+            #authorInput
+            [formControl]="authorCtrl"
+            [matChipInputFor]="chipGrid"
+            [matAutocomplete]="auto"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addAuthor($event)"
+          />
+          <mat-autocomplete
+            #auto="matAutocomplete"
+            (optionSelected)="selectedAuthor($event)"
+          >
+            <mat-option
+              *ngFor="let author of filteredAuthors | async"
+              [value]="author.nome"
+            >
+              {{ author.nome }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12 mb-3">
+        <mat-form-field class="chip-list">
+          <mat-label>Assunto(s)</mat-label>
+          <mat-chip-grid #chipGrid2 aria-label="Seleção de assuntos">
+            <mat-chip-row
+              *ngFor="let author of element?.autores"
+              (removed)="removeAuthor(author)"
+            >
+              {{ author.nome }}
+              <button matChipRemove [attr.aria-label]="'remove ' + author.nome">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+          </mat-chip-grid>
+          <input
+            placeholder="Novo autor..."
+            #authorInput
+            [formControl]="authorCtrl"
+            [matChipInputFor]="chipGrid2"
+            [matAutocomplete]="auto2"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            (matChipInputTokenEnd)="addAuthor($event)"
+          />
+          <mat-autocomplete
+            #auto2="matAutocomplete"
+            (optionSelected)="selectedAuthor($event)"
+          >
+            <mat-option
+              *ngFor="let author of filteredAuthors | async"
+              [value]="author.nome"
+            >
+              {{ author.nome }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end gap-2 mt-4">
+      <button type="button" class="btn btn-secondary" (click)="voltar()">
+        Cancelar
+      </button>
+      @if (form.valid) {
+        <button type="submit" class="btn btn-primary" id="btnSend">
+          Salvar
+        </button>
+      } @else {
+        <button type="submit" class="btn btn-primary" id="btnSend" disabled>
+          Salvar
+        </button>
+      }
+    </div>
+  </div>
+</form>

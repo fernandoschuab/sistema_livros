@@ -17,9 +17,19 @@ export abstract class BaseService<T> {
   id(uid: string): Observable<any> {
     return this.http.get(`${this.urlBase}/${uid}`);
   }
-
+  public save(model: T | any): Observable<T> {
+    if (model.id) {
+      return this.http.put<T>(`${this.urlBase}/${model.id}`, model);
+    } else {
+      return this.http.post<T>(this.urlBase, model);
+    }
+  }
   public post(model: T): Observable<any> {
     return this.http.post(this.urlBase, model);
+  }
+
+  public put(model: T | any): Observable<any> {
+    return this.http.put<T>(`${this.urlBase}/${model.id}`, model);
   }
   public delete(uid: string): Observable<any> {
     return this.http.delete(`${this.urlBase}/${uid}`);
