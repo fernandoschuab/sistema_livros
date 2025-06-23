@@ -74,8 +74,11 @@ import { LiveAnnouncer } from "@angular/cdk/a11y";
 })
 export class BookComponent implements OnInit {
   authorCtrl = new FormControl("");
+  subjectCtrl = new FormControl("");
   filteredAuthors: Observable<any[]>;
+  filteredSubjects: Observable<any[]>;
   @ViewChild("authorInput") authorInput!: ElementRef<HTMLInputElement>;
+  @ViewChild("subjectInput") subjectInput!: ElementRef<HTMLInputElement>;
 
   constructor(
     private router: Router,
@@ -91,7 +94,14 @@ export class BookComponent implements OnInit {
     this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
       startWith(null),
       map((althor: string | null) =>
-        althor ? this._filter(althor) : this.allAuthors.slice(),
+        althor ? this._filterAuthor(althor) : this.allAuthors.slice(),
+      ),
+    );
+
+    this.filteredSubjects = this.subjectCtrl.valueChanges.pipe(
+      startWith(null),
+      map((subj: string | null) =>
+        subj ? this._filterSubject(subj) : this.allSubjects.slice(),
       ),
     );
   }
@@ -126,11 +136,51 @@ export class BookComponent implements OnInit {
     this.save();
   }
 
+  async addSubject(event: MatChipInputEvent) {
+    const value = (event.value || "").trim();
+    const hasSubjectInBook = this.element.assuntos?.some(
+      (subj: any) => subj.descricao === value,
+    );
+    if (hasSubjectInBook) {
+      event.chipInput!.clear();
+      this.subjectCtrl.setValue(null);
+      return;
+    }
+    const hasSubjectInBD: any = this.allSubjects?.filter(
+      (subj: any) => subj.descricao === value,
+    );
+    console.log("hasSubjectInBD", hasSubjectInBD);
+    if (hasSubjectInBD?.length > 0) {
+      let subj = hasSubjectInBD[0];
+      delete subj.livros;
+      this.element.autores?.push(subj);
+    } else if (value) {
+      let newSubject: any = { nome: value };
+      let subjectSaved = await firstValueFrom(
+        this.authorService.post(newSubject),
+      );
+      this.element.assuntos?.push(subjectSaved);
+    }
+    event.chipInput!.clear();
+    this.subjectCtrl.setValue(null);
+
+    this.save();
+  }
+
   removeAuthor(author: string): void {
     const index = this.element.autores?.indexOf(author);
     if (index >= 0) {
       this.element.autores?.splice(index, 1);
       this.filterAuthors();
+      this.announcer.announce(`Removed ${author}`);
+    }
+  }
+
+  removeSubject(author: string): void {
+    const index = this.element.assuntos?.indexOf(author);
+    if (index >= 0) {
+      this.element.assuntos?.splice(index, 1);
+      this.filterSubjects();
       this.announcer.announce(`Removed ${author}`);
     }
   }
@@ -154,16 +204,25 @@ export class BookComponent implements OnInit {
     }
   }
 
-  private _filter(value: string): string[] {
+  private _filterAuthor(value: string): string[] {
     const filterValue = value.toLowerCase();
 
     return this.allAuthors
       .filter((author) => author.nome.toLowerCase().includes(filterValue))
       .map((author) => author.nome);
   }
+  private _filterSubject(value: string): string[] {
+    const filterValue = value.toLowerCase();
 
+    return this.allSubjects
+      .filter((subject) =>
+        subject.descricao.toLowerCase().includes(filterValue),
+      )
+      .map((subj) => subj.descricao);
+  }
   element: Livro | any;
   allAuthors: Autor[] = [];
+  allSubjects: Assunto[] = [];
 
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
   readonly currentAuthor = model("");
@@ -191,39 +250,37 @@ export class BookComponent implements OnInit {
 
   filterAuthors() {
     const idAuthorsSet = new Set(
-      this.element.autores.map((autor: any) => autor.id),
+      this.element.autores.map((author: any) => author.id),
     );
 
-    const filteredItems = this.allAuthors.filter((fakeAuthor) => {
-      return !idAuthorsSet.has(fakeAuthor.id);
+    const filteredItems = this.allAuthors.filter((author) => {
+      return !idAuthorsSet.has(author.id);
     });
     this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
       startWith(null),
       map((althor: string | null) =>
-        althor ? this._filter(althor) : filteredItems.slice(),
+        althor ? this._filterAuthor(althor) : filteredItems.slice(),
+      ),
+    );
+  }
+
+  filterSubjects() {
+    const idSubjectsSet = new Set(
+      this.element.assuntos.map((sub: any) => sub.id),
+    );
+
+    const filteredItems = this.allSubjects.filter((sub) => {
+      return !idSubjectsSet.has(sub.id);
+    });
+    this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
+      startWith(null),
+      map((althor: string | null) =>
+        althor ? this._filterSubject(althor) : filteredItems.slice(),
       ),
     );
   }
 
   async ngOnInit(): Promise<void> {
-    //fakedata
-    this.allAuthors = [
-      {
-        id: 1,
-        nome: "Machado de Assis",
-        livros: [],
-      },
-      {
-        id: 2,
-        nome: "Aluísio Azevedo",
-        livros: [],
-      },
-      {
-        id: 3,
-        nome: "Joaquim Manuel de Macedo",
-        livros: [],
-      },
-    ];
     await this.getAuthors();
     await this.getSubjects();
 
@@ -231,20 +288,6 @@ export class BookComponent implements OnInit {
   }
 
   async getId(uid: string): Promise<void> {
-    this.element = {
-      id: 1,
-      titulo: "Dom Casmurro",
-      editora: "Editora A",
-      edicao: 1,
-      anoPublicacao: "1899",
-      valor: 39.9,
-      autores: [{ id: 1, nome: "Machado de Assis" }],
-      assuntos: [
-        { id: 1, descricao: "Romance" },
-        { id: 2, descricao: "Conto" },
-      ],
-    };
-    this.filterAuthors();
     if (uid === "new") {
       this.initForm();
       return;
@@ -254,7 +297,7 @@ export class BookComponent implements OnInit {
       this.element = new Livro(result);
 
       this.initForm();
-      this.filterAuthors();
+      this.filterItems();
 
       if (this.element.autores && this.element.autores.length > 0) {
         this.selectedAuthors.set(this.element.autores);
@@ -267,6 +310,10 @@ export class BookComponent implements OnInit {
       });
       this.router.navigateByUrl("/books");
     }
+  }
+  filterItems(): void {
+    this.filterAuthors();
+    this.filterSubjects();
   }
 
   initForm(): void {

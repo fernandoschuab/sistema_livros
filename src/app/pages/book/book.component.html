@@ -193,33 +193,36 @@
           <mat-label>Assunto(s)</mat-label>
           <mat-chip-grid #chipGrid2 aria-label="Seleção de assuntos">
             <mat-chip-row
-              *ngFor="let author of element?.autores"
-              (removed)="removeAuthor(author)"
+              *ngFor="let subj of element?.assuntos"
+              (removed)="removeSubject(subj)"
             >
-              {{ author.nome }}
-              <button matChipRemove [attr.aria-label]="'remove ' + author.nome">
+              {{ subj.descricao }}
+              <button
+                matChipRemove
+                [attr.aria-label]="'remove ' + subj.descricao"
+              >
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
           </mat-chip-grid>
           <input
-            placeholder="Novo autor..."
-            #authorInput
-            [formControl]="authorCtrl"
+            placeholder="Novo assunto..."
+            #subjectInput
+            [formControl]="subjectCtrl"
             [matChipInputFor]="chipGrid2"
             [matAutocomplete]="auto2"
             [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addAuthor($event)"
+            (matChipInputTokenEnd)="addSubject($event)"
           />
           <mat-autocomplete
             #auto2="matAutocomplete"
             (optionSelected)="selectedAuthor($event)"
           >
             <mat-option
-              *ngFor="let author of filteredAuthors | async"
-              [value]="author.nome"
+              *ngFor="let subj of filteredSubjects | async"
+              [value]="subj.descricao"
             >
-              {{ author.nome }}
+              {{ subj.descricao }}
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
