@@ -48,7 +48,7 @@
   </div>
 </form>
 
-@if (element.id && element.livros) {
+@if (element.id && element.livros?.length > 0) {
   <mat-list>
     <div mat-subheader>Livros cadastrados:</div>
     @for (note of notes; track note) {

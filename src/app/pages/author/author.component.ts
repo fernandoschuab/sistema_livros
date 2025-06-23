@@ -90,7 +90,7 @@ export class AuthorComponent implements OnInit {
   public initForm(): void {
     this.form.reset();
     this.form.patchValue({
-      nome: this.element.titulo,
+      nome: this.element.nome,
     });
   }
 
