@@ -19,7 +19,9 @@ export class SubjectsComponent implements OnInit {
   elements: any[] = [];
 
   async getAll() {
-    this.elements = await firstValueFrom(this.subjectService.all());
+    this.elements = await firstValueFrom(this.subjectService.all()).catch(
+      () => [],
+    );
   }
 
   async actionEvent(evt: any): Promise<void> {

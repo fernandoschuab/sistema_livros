@@ -331,27 +331,15 @@ export class BookComponent implements OnInit {
   }
 
   async getAuthors(): Promise<void> {
-    try {
-      const result = await firstValueFrom(this.authorService.all());
-      this.allAuthors = result;
-    } catch (error) {
-      console.error("Erro ao carregar autores:", error);
-      this.matSnack.open("Erro ao carregar autores.", "Fechar", {
-        duration: 3000,
-      });
-    }
+    this.allAuthors = await firstValueFrom(this.authorService.all()).catch(
+      () => [],
+    );
   }
 
   async getSubjects(): Promise<void> {
-    try {
-      const result = await firstValueFrom(this.subjectService.all());
-      this.subjects = result;
-    } catch (error) {
-      console.error("Erro ao carregar assuntos:", error);
-      this.matSnack.open("Erro ao carregar assuntos.", "Fechar", {
-        duration: 3000,
-      });
-    }
+    this.allSubjects = await firstValueFrom(this.subjectService.all()).catch(
+      () => [],
+    );
   }
 
   async save(): Promise<void> {

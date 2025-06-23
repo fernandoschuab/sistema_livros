@@ -18,7 +18,9 @@ export class AuthorsComponent implements OnInit {
   elements: any[] = [];
 
   async getAll() {
-    this.elements = await firstValueFrom(this.authorService.all());
+    this.elements = await firstValueFrom(this.authorService.all()).catch(
+      () => [],
+    );
   }
 
   async actionEvent(evt: any): Promise<void> {

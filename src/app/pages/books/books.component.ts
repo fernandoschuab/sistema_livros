@@ -19,12 +19,9 @@ export class BooksComponent implements OnInit {
   elements: any[] = [];
 
   async getAll() {
-    // let arr: any[] = [];
-    // this.elements.forEach((el) => {
-    //   arr.push(new Livro(el));
-    // });
-    // this.elements = arr;
-    this.elements = await firstValueFrom(this.bookService.all());
+    this.elements = await firstValueFrom(this.bookService.all()).catch(
+      () => [],
+    );
   }
 
   async actionEvent(evt: any): Promise<void> {

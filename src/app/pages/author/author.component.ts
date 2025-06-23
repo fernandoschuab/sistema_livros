@@ -74,7 +74,10 @@ export class AuthorComponent implements OnInit {
     }
     try {
       const result = await firstValueFrom(this.authorService.id(uid));
-      this.element = new Autor(result);
+      if (result) {
+        this.element = new Autor(result);
+      }
+
       this.initForm();
     } catch (error) {
       console.error("Erro ao carregar livro:", error);
