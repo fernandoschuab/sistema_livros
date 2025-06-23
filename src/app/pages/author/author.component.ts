@@ -102,7 +102,7 @@ export class AuthorComponent implements OnInit {
     if (this.form.valid) {
       try {
         this.element = { ...this.element, ...this.form.value };
-
+        delete this.element.livros;
         let result: Autor;
         result = await firstValueFrom(this.authorService.save(this.element));
 

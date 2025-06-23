@@ -99,7 +99,7 @@ export class SubjectComponent implements OnInit {
     if (this.form.valid) {
       try {
         this.element = { ...this.element, ...this.form.value };
-
+        delete this.element.livros;
         let result: Assunto;
         result = await firstValueFrom(this.subjectService.save(this.element));
 
