@@ -11,17 +11,15 @@ export class RelatorioComponent {
   constructor(private reportService: ReportService) {}
 
   async downloadReport() {
-
     this.reportService.getReportPdf().subscribe({
-          next: (data) => {
-            const file = new Blob([data], { type: 'application/pdf' });
-            const fileURL = URL.createObjectURL(file);
-            window.open(fileURL, '_blank');
-          },
-          error: (error) => {
-            console.error('Erro ao gerar o PDF', error);
-          },
-        });
-      }
+      next: (data) => {
+        const file = new Blob([data], { type: "application/pdf" });
+        const fileURL = URL.createObjectURL(file);
+        window.open(fileURL, "_blank");
+      },
+      error: (error) => {
+        console.error("Erro ao gerar o PDF", error);
+      },
+    });
   }
 }
