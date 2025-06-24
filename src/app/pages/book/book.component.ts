@@ -270,30 +270,33 @@ export class BookComponent implements OnInit {
     const idAuthorsSet = new Set(
       this.element.autores.map((author: any) => author.id),
     );
-
+    console.log("idAuthorsSet", idAuthorsSet);
     const filteredItems = this.allAuthors.filter((author) => {
       return !idAuthorsSet.has(author.id);
     });
+    console.log("filteredItems", filteredItems);
     this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
       startWith(null),
       map((althor: string | null) =>
         althor ? this._filterAuthor(althor) : filteredItems.slice(),
       ),
     );
+    console.log("this.filteredAuthors ", this.filteredAuthors);
   }
 
   filterSubjects() {
     const idSubjectsSet = new Set(
       this.element.assuntos.map((sub: any) => sub.id),
     );
-
+    console.log("idSubjectsSet", idSubjectsSet);
     const filteredItems = this.allSubjects.filter((sub) => {
       return !idSubjectsSet.has(sub.id);
     });
-    this.filteredAuthors = this.authorCtrl.valueChanges.pipe(
+    console.log("filteredItems", filteredItems);
+    this.filteredAuthors = this.subjectCtrl.valueChanges.pipe(
       startWith(null),
-      map((althor: string | null) =>
-        althor ? this._filterSubject(althor) : filteredItems.slice(),
+      map((subj: string | null) =>
+        subj ? this._filterSubject(subj) : filteredItems.slice(),
       ),
     );
   }
@@ -354,12 +357,15 @@ export class BookComponent implements OnInit {
     this.allAuthors = await firstValueFrom(this.authorService.all()).catch(
       () => [],
     );
+    console.log("this.allAuthors", this.allAuthors);
   }
 
   async getSubjects(): Promise<void> {
     this.allSubjects = await firstValueFrom(this.subjectService.all()).catch(
       () => [],
     );
+
+    console.log("this.allSubjects", this.allSubjects);
   }
 
   async save(): Promise<void> {
