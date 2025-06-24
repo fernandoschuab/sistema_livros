@@ -151,7 +151,7 @@
 
     <div class="row">
       <div class="col-12 mb-3">
-        <mat-form-field class="chip-list">
+        <mat-form-field class="chip-list" appearance="outline">
           <mat-label>Autor(es)</mat-label>
           <mat-chip-grid #chipGrid aria-label="Seleção de autores">
             <mat-chip-row
@@ -163,16 +163,17 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
+            <input
+              placeholder="Novo autor..."
+              #authorInput
+              [formControl]="authorCtrl"
+              [matChipInputFor]="chipGrid"
+              [matAutocomplete]="auto"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addAuthor($event)"
+              matChipInputAddOnBlur="true"
+            />
           </mat-chip-grid>
-          <input
-            placeholder="Novo autor..."
-            #authorInput
-            [formControl]="authorCtrl"
-            [matChipInputFor]="chipGrid"
-            [matAutocomplete]="auto"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addAuthor($event)"
-          />
           <mat-autocomplete
             #auto="matAutocomplete"
             (optionSelected)="selectedAuthor($event)"
@@ -187,9 +188,10 @@
         </mat-form-field>
       </div>
     </div>
+
     <div class="row">
       <div class="col-12 mb-3">
-        <mat-form-field class="chip-list">
+        <mat-form-field class="chip-list" appearance="outline">
           <mat-label>Assunto(s)</mat-label>
           <mat-chip-grid #chipGrid2 aria-label="Seleção de assuntos">
             <mat-chip-row
@@ -204,16 +206,17 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
+            <input
+              placeholder="Novo assunto..."
+              #subjectInput
+              [formControl]="subjectCtrl"
+              [matChipInputFor]="chipGrid2"
+              [matAutocomplete]="auto2"
+              [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+              (matChipInputTokenEnd)="addSubject($event)"
+              matChipInputAddOnBlur="true"
+            />
           </mat-chip-grid>
-          <input
-            placeholder="Novo assunto..."
-            #subjectInput
-            [formControl]="subjectCtrl"
-            [matChipInputFor]="chipGrid2"
-            [matAutocomplete]="auto2"
-            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-            (matChipInputTokenEnd)="addSubject($event)"
-          />
           <mat-autocomplete
             #auto2="matAutocomplete"
             (optionSelected)="selectedSubject($event)"
@@ -228,6 +231,7 @@
         </mat-form-field>
       </div>
     </div>
+
     <div class="d-flex justify-content-end gap-2 mt-4">
       <button type="button" class="btn btn-secondary" (click)="voltar()">
         Cancelar
