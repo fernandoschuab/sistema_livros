@@ -1,4 +1,5 @@
 import { AsyncPipe, CommonModule, Location } from "@angular/common";
+import {CurrencyMaskModule} from 'ng2-currency-mask';
 import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 import {
   FormControl,
@@ -61,6 +62,7 @@ import { LiveAnnouncer } from "@angular/cdk/a11y";
     MatCheckboxModule,
     MatTableModule,
     AsyncPipe,
+    CurrencyMaskModule
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: "./book.component.html",

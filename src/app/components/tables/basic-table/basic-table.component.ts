@@ -114,4 +114,7 @@ export class BasicTableComponent implements OnInit, OnChanges, AfterViewInit {
   openDialogItemDetails(element: any) {
     this.actionEvent.emit({ item: element, action: "details" });
   }
+  formatarValor(valor: number): string {
+    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(valor);
+  }
 }
