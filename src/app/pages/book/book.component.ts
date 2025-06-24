@@ -203,6 +203,24 @@ export class BookComponent implements OnInit {
       this.filterAuthors();
     }
   }
+  selectedSubject(event: MatAutocompleteSelectedEvent): void {
+    const selectedItem = this.allSubjects.filter(
+      (subj) => subj.descricao === event.option.viewValue,
+    );
+
+    if (selectedItem?.length > 0) {
+      this.element.assuntos?.push(selectedItem[0]);
+      console.log(
+        "event.option.viewValue",
+        event.option.viewValue,
+        selectedItem,
+        this.element.autores,
+      );
+      this.subjectInput.nativeElement.value = "";
+      this.subjectCtrl.setValue(null);
+      this.filterSubjects();
+    }
+  }
 
   private _filterAuthor(value: string): string[] {
     const filterValue = value.toLowerCase();

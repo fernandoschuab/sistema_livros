@@ -11,9 +11,6 @@
             placeholder="Preencha o título do livro"
             formControlName="titulo"
             required
-            [class.is-invalid]="
-              form.get('titulo')?.invalid && form.get('titulo')?.touched
-            "
           />
           @if (
             form.get("titulo")?.hasError("required") &&
@@ -40,9 +37,6 @@
             placeholder="Preencha a editora"
             formControlName="editora"
             required
-            [class.is-invalid]="
-              form.get('editora')?.invalid && form.get('editora')?.touched
-            "
           />
           @if (
             form.get("editora")?.hasError("required") &&
@@ -70,9 +64,6 @@
             placeholder="Preencha o número da edição"
             formControlName="edicao"
             required
-            [class.is-invalid]="
-              form.get('edicao')?.invalid && form.get('edicao')?.touched
-            "
           />
           @if (
             form.get("edicao")?.hasError("required") &&
@@ -97,10 +88,6 @@
             formControlName="anoPublicacao"
             required
             pattern="^(1[0-9]{3}|20[0-2][0-9]|202[0-5])$"
-            [class.is-invalid]="
-              form.get('anoPublicacao')?.invalid &&
-              form.get('anoPublicacao')?.touched
-            "
           />
           @if (
             form.get("anoPublicacao")?.hasError("required") &&
@@ -130,9 +117,6 @@
             required
             min="0.01"
             step="0.01"
-            [class.is-invalid]="
-              form.get('valor')?.invalid && form.get('valor')?.touched
-            "
           />
           @if (
             form.get("valor")?.hasError("required") &&
@@ -153,7 +137,7 @@
       <div class="col-12 mb-3">
         <mat-form-field class="chip-list">
           <mat-label>Autor(es)</mat-label>
-          <mat-chip-grid #chipGrid aria-label="Seleção de autores">
+          <mat-chip-listbox #chipGrid aria-label="Seleção de autores">
             <mat-chip-row
               *ngFor="let author of element?.autores"
               (removed)="removeAuthor(author)"
@@ -163,7 +147,7 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
-          </mat-chip-grid>
+          </mat-chip-listbox>
           <input
             placeholder="Novo autor..."
             #authorInput
@@ -191,7 +175,7 @@
       <div class="col-12 mb-3">
         <mat-form-field class="chip-list">
           <mat-label>Assunto(s)</mat-label>
-          <mat-chip-grid #chipGrid2 aria-label="Seleção de assuntos">
+          <mat-chip-listbox #chipGrid2 aria-label="Seleção de assuntos">
             <mat-chip-row
               *ngFor="let subj of element?.assuntos"
               (removed)="removeSubject(subj)"
@@ -204,7 +188,7 @@
                 <mat-icon>cancel</mat-icon>
               </button>
             </mat-chip-row>
-          </mat-chip-grid>
+          </mat-chip-listbox>
           <input
             placeholder="Novo assunto..."
             #subjectInput
@@ -216,7 +200,7 @@
           />
           <mat-autocomplete
             #auto2="matAutocomplete"
-            (optionSelected)="selectedAuthor($event)"
+            (optionSelected)="selectedSubject($event)"
           >
             <mat-option
               *ngFor="let subj of filteredSubjects | async"
@@ -232,15 +216,14 @@
       <button type="button" class="btn btn-secondary" (click)="voltar()">
         Cancelar
       </button>
-      @if (form.valid) {
-        <button type="submit" class="btn btn-primary" id="btnSend">
-          Salvar
-        </button>
-      } @else {
-        <button type="submit" class="btn btn-primary" id="btnSend" disabled>
-          Salvar
-        </button>
-      }
+      <button
+        type="submit"
+        class="btn btn-primary"
+        id="btnSend"
+        [disabled]="form.invalid"
+      >
+        Salvar
+      </button>
     </div>
   </div>
 </form>
