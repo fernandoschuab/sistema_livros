@@ -337,7 +337,7 @@ export class BookComponent implements OnInit {
     }
   }
 
-  async save() {
+  async save(redirect: boolean = false) {
     this.form.controls.autores.setValue(this.element.autores);
     this.form.controls.assuntos.setValue(this.element.assuntos);
     this.form.markAllAsTouched();
@@ -359,7 +359,9 @@ export class BookComponent implements OnInit {
         this.matSnack.open("Livro salvo com sucesso!", undefined, {
           duration: 3000,
         });
-        this.router.navigateByUrl(`/livros`);
+        if (redirect) {
+          this.router.navigateByUrl(`/livros`);
+        }
       }
     } catch (error) {
       console.error("Erro ao salvar livro:", error);

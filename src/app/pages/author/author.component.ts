@@ -99,7 +99,7 @@ export class AuthorComponent implements OnInit {
     this.active.params.subscribe((p) => this.getId(p["id"]));
   }
 
-  public async save(): Promise<void> {
+  public async save(redirect: boolean = false): Promise<void> {
     this.form.markAllAsTouched();
 
     if (this.form.valid) {
@@ -113,8 +113,9 @@ export class AuthorComponent implements OnInit {
           this.matSnack.open("Autor salvo com sucesso!", undefined, {
             duration: 3000,
           });
-
-          this.router.navigateByUrl("/autores");
+          if (redirect) {
+            this.router.navigateByUrl("/autores");
+          }
         }
       } catch (error) {
         console.error("Erro ao salvar livro:", error);
