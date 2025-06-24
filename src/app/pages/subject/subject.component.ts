@@ -72,9 +72,8 @@ export class SubjectComponent implements OnInit {
     try {
       const result = await firstValueFrom(this.subjectService.id(uid));
       if (result) {
-        this.element = new Assunto(result);
+        this.element = result;
       }
-
       this.initForm();
     } catch (error) {
       console.error("Erro ao carregar livro:", error);

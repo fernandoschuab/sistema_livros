@@ -294,7 +294,9 @@ export class BookComponent implements OnInit {
     }
     try {
       const result = await firstValueFrom(this.bookService.id(uid));
-      this.element = new Livro(result);
+      if (result) {
+        this.element = result;
+      }
 
       this.initForm();
       this.filterItems();

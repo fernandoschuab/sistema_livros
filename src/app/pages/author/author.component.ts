@@ -75,7 +75,7 @@ export class AuthorComponent implements OnInit {
     try {
       const result = await firstValueFrom(this.authorService.id(uid));
       if (result) {
-        this.element = new Autor(result);
+        this.element = result;
       }
 
       this.initForm();
