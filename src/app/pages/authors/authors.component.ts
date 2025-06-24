@@ -28,9 +28,7 @@ export class AuthorsComponent implements OnInit {
     if (evt.action === "delete" && evt.item) {
       let res = await firstValueFrom(this.authorService.delete(evt.item.id));
 
-      if (res) {
-        this.getAll();
-      }
+      await this.getAll();
     }
   }
 }

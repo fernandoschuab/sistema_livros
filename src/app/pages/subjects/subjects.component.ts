@@ -29,9 +29,7 @@ export class SubjectsComponent implements OnInit {
     if (evt.action === "delete" && evt.item) {
       let res = await firstValueFrom(this.subjectService.delete(evt.item.id));
 
-      if (res) {
-        this.getAll();
-      }
+      await this.getAll();
     }
   }
 }

@@ -29,9 +29,7 @@ export class BooksComponent implements OnInit {
     if (evt.action === "delete" && evt.item) {
       let res = await firstValueFrom(this.bookService.delete(evt.item.id));
 
-      if (res) {
-        this.getAll();
-      }
+      await this.getAll();
     }
   }
 }
