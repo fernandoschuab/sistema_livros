@@ -94,8 +94,8 @@ export class BookComponent implements OnInit {
       Validators.pattern("^(1[0-9]{3}|20[0-2][0-9]|202[0-5])$"),
     ]),
     valor: new FormControl(null, [Validators.required, Validators.min(0.01)]),
-    autores: new FormControl([] as Autor[], Validators.required),
-    assuntos: new FormControl([] as Assunto[], Validators.required),
+    autores: new FormControl([] as Autor[]),
+    assuntos: new FormControl([] as Assunto[]),
   });
 
   private announcer = inject(LiveAnnouncer);
@@ -145,7 +145,7 @@ export class BookComponent implements OnInit {
   }
 
   private availableAuthors(): Autor[] {
-    const selectedIds = new Set(this.element.autores.map((a:any) => a.id));
+    const selectedIds = new Set(this.element.autores.map((a: any) => a.id));
     return this.allAuthors.filter((a) => !selectedIds.has(a.id));
   }
 
@@ -210,7 +210,9 @@ export class BookComponent implements OnInit {
 
     if (!value) return;
 
-    const existsInBook = this.element.autores.some((a: any) => a.nome === value);
+    const existsInBook = this.element.autores.some(
+      (a: any) => a.nome === value,
+    );
     if (existsInBook) {
       event.chipInput!.clear();
       this.authorCtrl.setValue(null);
