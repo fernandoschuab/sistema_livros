@@ -47,6 +47,17 @@
             <span>Assuntos</span>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a
+            class="nav-link d-flex align-items-center gap-2"
+            (click)="goTo('/relatorio')"
+            [ngClass]="{ active: isActive(['/relatorio']) }"
+          >
+            <i class="bi bi-tags"></i>
+            <span>Assuntos</span>
+          </a>
+        </li>
       </ul>
     </nav>
   }

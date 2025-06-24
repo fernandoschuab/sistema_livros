@@ -359,10 +359,7 @@ export class BookComponent implements OnInit {
         this.matSnack.open("Livro salvo com sucesso!", undefined, {
           duration: 3000,
         });
-        if (!this.element.id) {
-          this.element.id = result.id;
-          this.router.navigateByUrl(`/books/${this.element.id}`);
-        }
+        this.router.navigateByUrl(`/livros`);
       }
     } catch (error) {
       console.error("Erro ao salvar livro:", error);

@@ -114,12 +114,7 @@ export class AuthorComponent implements OnInit {
             duration: 3000,
           });
 
-          if (!this.element.id) {
-            this.element.id = result.id;
-            this.router.navigateByUrl(`/autor/${this.element.id}`);
-          } else {
-            this.router.navigateByUrl("/autores");
-          }
+          this.router.navigateByUrl("/autores");
         }
       } catch (error) {
         console.error("Erro ao salvar livro:", error);

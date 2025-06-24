@@ -6,6 +6,7 @@ import { SubjectsComponent } from "./pages/subjects/subjects.component";
 import { BookComponent } from "./pages/book/book.component";
 import { AuthorComponent } from "./pages/author/author.component";
 import { SubjectComponent } from "./pages/subject/subject.component";
+import { RelatorioComponent } from "./pages/relatorio/relatorio.component";
 
 export const routes: Routes = [
   {
@@ -38,8 +39,8 @@ export const routes: Routes = [
     component: SubjectComponent,
   },
   {
-    path: "login",
-    component: LoginComponent,
+    path: "relatorio",
+    component: RelatorioComponent,
   },
   { path: "**", pathMatch: "full", redirectTo: "/livros" },
 ];

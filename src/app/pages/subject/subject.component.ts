@@ -110,12 +110,7 @@ export class SubjectComponent implements OnInit {
             duration: 3000,
           });
 
-          if (!this.element.id) {
-            this.element.id = result.id;
-            this.router.navigateByUrl(`/assunto/${this.element.id}`);
-          } else {
-            this.router.navigateByUrl("/assuntos");
-          }
+          this.router.navigateByUrl("/assuntos");
         }
       } catch (error) {
         console.error("Erro ao salvar livro:", error);
